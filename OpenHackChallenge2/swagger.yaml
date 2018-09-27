@@ -1,0 +1,181 @@
+swagger: '2.0'
+info:
+  title: "OpenHack Team 7"
+  version: 1.0.0
+host: "openhackchallenge220180927115450.azurewebsites.net"
+basePath: "/api"
+schemes:
+  - https
+paths:
+  /GetProduct/{productId}:
+    get:
+      operationId: "GetProduct"
+      produces: 
+      - "application/json"
+      consumes: 
+      - "application/json"
+      parameters: 
+      - name: "productId"
+        in: "path"
+        required: true
+        description: "id of the product"
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "Success operation"
+          schema:
+            $ref: "#/definitions/Product"
+  /GetProducts:
+    get:
+      operationId: /GetProducts
+      produces: 
+      - "application/json"
+      consumes: 
+      - "application/json"
+      responses:
+        200:
+          description: "Success operation"
+          schema:
+            items:
+              $ref: "#/definitions/Product"
+  /GetUser/{userId}:
+    get:
+      operationId: "GetUser"
+      produces: 
+      - "application/json"
+      consumes: 
+      - "application/json"
+      parameters: 
+      - name: "userId"
+        in: "path"
+        required: true
+        description: "Id of the user"
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "Success operation"
+          schema:
+            $ref: "#/definitions/User"
+  /CreateRating:
+    post:
+      operationId: "CreateRating"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Rating"
+      description: "Creates new Rating"
+      responses:
+        '200':
+          description: Success operation
+          schema:
+            $ref: "#/definitions/Rating"
+  /GetRating/{ratingId}:
+    get:
+      operationId: "GetRating"
+      produces: 
+      - "application/json"
+      consumes: 
+      - "application/json"
+      parameters: 
+      - name: "ratingId"
+        in: "path"
+        required: true
+        description: "Id of the Rating"
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "Success operation"
+          schema:
+            $ref: "#/definitions/Rating"
+  /GetRatings:
+    get:
+      operationId: /GetRatings
+      produces: 
+      - "application/json"
+      consumes: 
+      - "application/json"
+      responses:
+        200:
+          description: "Success operation"
+          schema:
+            items:
+              $ref: "#/definitions/Rating"
+definitions:
+  Rating:
+    type: "object"
+    properties:
+      id: 
+        type: "string"
+        format: "guid"
+        example: "c35a36a2-75bd-4b4e-b909-9a71d9d5185b"
+      timestamp:
+        type: "string"
+        format: "DateTime"
+        example: "2018-09-27 15:15:10"
+      userId:
+        type: "string"
+        format: "guid"
+        example: "c35a36a2-75bd-4b4e-b909-9a71d9d5185b"
+      productId:
+        type: "string"
+        format: "guid"
+        example: "c35a36a2-75bd-4b4e-b909-9a71d9d5185b"
+      locationName:
+        type: "string"
+        format: "String"
+        example: "Orlando"
+      userNotes:
+        type: "string"
+        format: "String"
+        example: "Team 7 is the best"
+      rating:
+        type: "integer"
+        format: "int64"
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        example: 5
+  Product:
+    type: "object"
+    properties:
+      productId:
+        type: "string"
+        format: "guid"
+        example: "c35a36a2-75bd-4b4e-b909-9a71d9d5185b"
+      productName:
+        type: "string"
+        format: "String"
+        example: "Test"
+      productDescription:
+        type: "string"
+        format: "String"
+        example: "Test"
+  User:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+        format: "Guid"
+        example: "c35a36a2-75bd-4b4e-b909-9a71d9d5185b"
+      userName:
+        type: "string"
+        format: "String"
+        example: "Dennis@domain"
+      fullName:
+        type: "string"
+        format: "String"
+        example: "Dennis"
